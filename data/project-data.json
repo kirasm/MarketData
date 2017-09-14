@@ -1,0 +1,31 @@
+{
+  "project1": {
+      "project": {
+      "projTitle": "Web interface for a mock business",
+      "projParagraph": "As part of a three-week project for a university project, i have been part of a team of 6 people, given the task to develop a system capable of handling sensor output from arduino sensors, and presented the data in a clean and modern way. The system was iteratively developed over a three-week period. I have been part of developing every step of the way, from the back end (mySQL) to the local server handling sensor data (Java) to the front end (HTML5 / CSS / Bootstrap / Jquery), though the majority of my workload leans towards the front-end for this project."
+    },
+    "problem": {
+      "probTitle": "Problems faced",
+      "probParagraph": "This was the first project i have been involved in both designing the back-end, a local server, programming arduinos, and designing a website with bootstrap, so a lot of things had to be googled, pondered and figured out through trial and error. One of the major problems we were with"
+    },
+    "lesson": {
+      "lessonTitle": "Lessons learned",
+      "lessonParagraph": "A lot of beginner mistakes were made, as there are any time you encounter new languages and environments you are not experienced with. We didn't use the REST protocol correctly, or with any structure at all. Our graphs had a lot of bugs, because of my then limited understanding of asynchronous programming. Finally our cookies was not incrypted despite it storing sensitive data (or atlease mock-data). The time spent debugging and shouting profanity at our own code, has given us time to reflect upon what not to do in the future. At lot has been learned since then."
+    }
+  },
+
+  "project2": {
+      "project": {
+      "projTitle": "Clever, but no data here for you.",
+      "projParagraph": ""
+    },
+    "problem": {
+      "probTitle": "",
+      "probParagraph": ""
+    },
+    "lesson": {
+      "lessonParagraph": "",
+      "lessonTitle": ""
+    }
+  }
+}

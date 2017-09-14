@@ -1,0 +1,225 @@
+html, body {
+  height: 100%;
+  min-height: 100%;
+  position:relative;
+}
+
+
+.text-box h3{
+  position: relative;
+  color: white;
+  text-shadow: none;
+  opacity: 1;
+  font-size: 2vw;
+  bottom: 0.3vw;
+}
+
+
+
+.text-box {
+  position:absolute;
+  bottom: 20vw;
+  left: 37vw;
+  width:25vw;
+  height:4vw;
+  background-color:black;
+  text-align: center;
+  opacity:0.5;
+}
+.project-title {
+  text-align: center;
+}
+
+.landing-text{
+  position:absolute;
+  color: white;
+  top: 17vw;
+  text-align: center;
+  margin-left: 17vw;
+  width: 65vw;
+}
+
+.landing-text h1 h3 {
+  position: relative;
+  font-size: 4vw;
+  width: 30vw;
+}
+
+.divider {
+  height: 2px;
+  width: 15%;
+  position: relative;
+}
+
+.nav-text {
+  color: black;
+}
+
+
+.icons {
+  position: absolute;
+  width: 100%;
+  margin-top: 40vw;
+  text-align: center;
+  overflow: hidden;
+}
+
+.icons img {
+  height: 30px;
+  width: 30px;
+}
+
+.card1 {
+  margin: 0 auto;
+  margin-top: 30px;
+  box-shadow: 5px 5px 22px 0px rgba(199,193,199,1);
+  height: 26vw;
+  width: 30vw;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: grey;
+
+  background-color: white;
+  overflow: hidden;
+
+}
+
+.cardFooter {
+
+  background-color: white;
+  width: 30vw;
+  height: 12vw;
+  box-shadow: 0px 5px 10px rgba(150,150,150,1);
+  margin-top: 14vw;
+  position: absolute;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+}
+
+.cardFooter h3 {
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+.card1 img {
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+.card1 h3{
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.card1 p{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  text-align: justify;
+}
+
+
+
+.text-site-left {
+  min-height: 20vw;
+  line-height: 200%
+
+}
+.text-site-left h1 {
+  margin-top: 5vw;
+  margin-left: 10vw;
+}
+.text-site-left p {
+  margin-left: 10vw;
+  width: 50vw;
+}
+
+.text-site-right {
+  min-height: 20vw;
+  color: white;
+  background-color: #c0392b;
+}
+.text-site-right h1 {
+  margin-top: 5vw;
+  margin-left: 65vw;
+}
+.text-site-right p {
+    margin-left: 65vw;
+    width: 30vw;
+    line-height: 200%;
+    padding-bottom: 10px;
+}
+
+.side-image-left {
+  position: absolute;
+  float: left;
+  padding-left: 20vw;
+  height: 100%;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.side-image-right {
+  position: absolute;
+  float: right;
+  padding-left: 73vw;
+  height: 80%;
+  margin-top: 3vw;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.project-caroussel {
+height: 30vw;
+}
+
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  background-color: #c0392b;
+  position: absolute;
+  width: 100%;
+}
+
+.footer h4 {
+  color: white;
+}
+
+.aboutme {
+  text-align: center;
+  color: white;
+  min-height: 20vw;
+  background-color: #c0392b;
+  width: 100%;
+}
+.aboutme h1 {
+}
+
+@media screen and (max-width: 1081px) {
+
+  .card1 {
+    height: 40vw;
+    width: 60vw;
+  }
+  .cardFooter {
+    margin-top: 20vw;
+    width: 60vw;
+    height: 20vw;
+  }
+  .landing-text h1 h3 {
+    font-size: 2px;
+
+  }
+
+  .text-box h3{
+    bottom: 1vw;
+  }
+
+}

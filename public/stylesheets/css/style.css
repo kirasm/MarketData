@@ -1,0 +1,48 @@
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 100px);
+    background-color: #fff;
+    color: #444;
+}
+
+/* Small screens (default) */
+html { font-size: 100%; }
+
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 100px);
+    background-color: #fff;
+    color: #444;
+}
+
+/* Medium screens (640px) */
+@media (min-width: 40rem) {
+    html {
+        font-size: 112%;
+    }
+    .wrapper {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(2, 100px);
+        background-color: #fff;
+        color: #444;
+    }
+}
+
+/* Large screens (1024px) */
+@media (min-width: 64rem) {
+    html { font-size: 120% }
+
+    .wrapper {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(4, 1fr);
+        background-color: #3333;
+        color: #444;
+    }
+
+
+}
+
