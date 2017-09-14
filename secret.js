@@ -16,6 +16,7 @@ function getMarketdata(idArray) {
     function getMarketdataJSON(id) {
         $.ajax({
             type: 'GET',
+            dataType: 'json',
             url: '/APIData',
            // data: {currencyID: id},
             success: function(result){
