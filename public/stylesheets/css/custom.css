@@ -3415,7 +3415,7 @@ ul.widget_profile_box li .profile_img {
     text-align: center
 }
 
-.widget_tally_box .name {
+.widget_tally_box .box {
     text-align: center;
     margin: 25px
 }
@@ -3440,7 +3440,7 @@ ul.widget_profile_box li .profile_img {
     width: 14px
 }
 
-.widget_tally_box ul.legend li .name {
+.widget_tally_box ul.legend li .box {
     font-size: 14px;
     margin: 5px 0 0 14px;
     text-overflow: ellipsis;
@@ -3591,7 +3591,7 @@ ul.stats-overview li:last-child {
     border-right: 0
 }
 
-ul.stats-overview li .name {
+ul.stats-overview li .box {
     font-size: 12px
 }
 

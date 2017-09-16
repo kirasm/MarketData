@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var json = require('./routes/json');
-var APIData = require('./routes/APIData');
+var APIData = require('./routes/api');
+var auth = require('./routes/authenticate');
 
 var app = express();
 
@@ -24,7 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // GET access handlers
 app.use('/', index);
 app.use('/json', json);
-app.use('/APIData', APIData);
+app.use('/api', APIData);
+app.use('/authenticate', auth);
 app.use(express.static(__dirname));
 
 // catch 404 and forward to error handler
