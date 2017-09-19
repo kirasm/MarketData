@@ -5,8 +5,8 @@ setInterval(function () {
 
     getMarketdataJSON(["bitcoin","ethereum"], function (dataArray) {
 
-
-        var price = dataArray[0].price_usd;
+        console.log(dataArray);
+        let price = dataArray[0][0].price_usd;
 
         if(price != currentPrice) {
 
@@ -32,13 +32,13 @@ setInterval(function () {
             procent_diff_modifier = " - / % ";
         }
         document.getElementById("price1").innerHTML = "$" + price;
-        document.getElementById("coinName").innerHTML = dataArray[0].id;
+        document.getElementById("coinName").innerHTML = dataArray[0][0].id;
         document.getElementById("title").innerHTML = "Btc: $" + price;
 
 
         document.getElementById("procent").innerHTML = procent_diff_modifier + procent_diff;
         document.getElementById("diff").innerHTML = diff_modifier + diff;
-        document.getElementById("boughtat").innerHTML = "$3501.04";
+        document.getElementById("boughtat").innerHTML = boughtat;
 
 
     });

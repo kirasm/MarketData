@@ -8,10 +8,6 @@ router.get('/', function(req, res) {
 
     var request = req.param('currencyID');
 
-    console.log("Request: " + request);
-
-    var total = request.length;
-    var count = 0;
     let responseArray = [];
 
     getJSONArray(function (responseArray) {
@@ -23,6 +19,7 @@ router.get('/', function(req, res) {
     function getJSONArray(callback) {
 
         for(let i = 0; i < request.length + 1; i++){
+
             (function(index){
 
                 getData(index, function (response) {
@@ -44,7 +41,6 @@ router.get('/', function(req, res) {
 
     }
 
-
     function getData(index, callback){
 
         getJSON("https://api.coinmarketcap.com/v1/ticker/" + request[index] + "/", function(error, response) {
@@ -54,12 +50,6 @@ router.get('/', function(req, res) {
         });
 
     }
-
-
-
-
-
-
 
 });
 
