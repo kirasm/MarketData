@@ -11,7 +11,7 @@ function getMarketdataJSON(id, callback) {
             data: {currencyID: id},
             success: function(result){
 
-                callback(result)
+                callback(result);
 
             }});
 
