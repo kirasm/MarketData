@@ -3,6 +3,8 @@ var currentPrice = "";
 
 setInterval(function () {
 
+    console.log("Tick");
+
     getMarketdataJSON(["bitcoin","ethereum"], function (dataArray) {
 
         console.log(dataArray);

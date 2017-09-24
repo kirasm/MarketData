@@ -4,13 +4,13 @@ var router = express.Router();
 var $ = require('jquery');
 
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
     var request = req.param('currencyID');
 
-    let responseArray = [];
 
     getJSONArray(function (responseArray) {
+        console.log("Sent!")
 
         res.json(responseArray);
 
@@ -18,21 +18,48 @@ router.get('/', function(req, res) {
 
     function getJSONArray(callback) {
 
-        for(let i = 0; i < request.length + 1; i++){
+        let responseArray = [];
 
-            (function(index){
+        for (let i = 0; i < request.length + 1; i++) {
 
-                getData(index, function (response) {
+            (function (index) {
 
-                    if(index > 1){
+                // Calls the API for each request in the array
+                getData(request[index], function (response) {
 
-                        callback(responseArray);
+                    try {
 
-                    } else {
+                        // Push response in returned array if id exists in requested array
+                        if (request.includes(response[0].id)) {
 
-                        responseArray.push(response);
+                            console.log("Pushed");
+                            responseArray.push(response);
+                        }
 
+                        // Returns response if response array is same size as requested array.
+                        if (responseArray.length == request.length) {
+
+                            // Orders returned array, by index of requested array.
+                            // REMEMBER! We are working asyncronously, so we have no way of knowing which getData response we get first!
+                            var orderedArray = []
+                            responseArray.forEach(function (item) {
+
+                                orderedArray[request.indexOf(item[0].id)] = item;
+
+                            });
+
+                            callback(orderedArray);
+
+                        } else {
+
+                            index = index - 1;
+
+                        }
+
+
+                    } catch (err) {
                     }
+
 
                 });
 
@@ -41,9 +68,9 @@ router.get('/', function(req, res) {
 
     }
 
-    function getData(index, callback){
+    function getData(request, callback) {
 
-        getJSON("https://api.coinmarketcap.com/v1/ticker/" + request[index] + "/", function(error, response) {
+        getJSON("https://api.coinmarketcap.com/v1/ticker/" + request + "/", function (error, response) {
 
             callback(response);
 
@@ -52,7 +79,6 @@ router.get('/', function(req, res) {
     }
 
 });
-
 
 
 module.exports = router;
