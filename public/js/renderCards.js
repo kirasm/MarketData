@@ -46,5 +46,5 @@ setInterval(function () {
     });
 
 
-}, 3000);
+}, 10000);
 

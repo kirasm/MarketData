@@ -52,7 +52,7 @@ router.get('/', function (req, res) {
 
                         } else {
 
-                            index = index - 1;
+                            index--;
 
                         }
 
