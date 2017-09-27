@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
   entry: [
+      'webpack-dev-server/client?http://0.0.0.0:80',
     './src/index'
   ],
   module: {
@@ -13,7 +14,6 @@ module.exports = {
      {
        test: /\.css$/,
        loaders: [
-         'style?sourceMap',
          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
      ]
      }
@@ -24,7 +24,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/public'),
-    publicPath: '/',
+    publicPath: '/public',
     filename: 'bundle.js'
   },
   devServer: {
