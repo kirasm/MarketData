@@ -2,7 +2,7 @@
 
 
 
-function getMarketdataJSON(id, callback) {
+async function getMarketdataJSON(id, callback) {
 
         $.ajax({
             type: 'GET',
@@ -16,4 +16,6 @@ function getMarketdataJSON(id, callback) {
             }});
 
 }
+
+
 

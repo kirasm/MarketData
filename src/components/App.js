@@ -19,16 +19,19 @@ export default class App extends React.Component {
         };
     }
 
+    renderList(){
+        const props = {coinArray: this.state.coinArray, removeCoin: this.removeCoin.bind(this)};
+
+        return coinArray.map((coin, index) => <CoinList key={index} {...coin} />);
+    }
+
     render() {
         return (
 
         <div>
                 <h1>CRYPTOCOIN</h1>
                 <SelectCoin coins={this.state.coinArray} addCoin={this.addCoin.bind(this)}/>
-                <CoinList
-                    coinArray={this.state.coinArray}
-                    removeCoin={this.removeCoin.bind(this)}
-                />
+                {this.renderList()}
             </div>
         );
     }

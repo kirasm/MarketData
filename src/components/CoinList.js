@@ -3,17 +3,28 @@ import React from 'react';
 import CoinListItem from './CoinListItem';
 
 export default class CoinList extends React.Component {
-    renderItems() {
-        const props = _.omit(this.props, 'coinArray');
+    constructor(props) {
+        super(props);
 
-        return _.map(this.props.coinArray, (coin, index) => <CoinListItem key={index} {...coin} {...props} />);
     }
+
+
+
 
     render() {
         return (
             <table>
+                <thead>
+                    <tr>
+                        <th>{this.props.coin}</th>
+                        <th>Current price</th>
+                        <th>Price bought at</th>
+                        <th>Difference</th>
+                        <th>Procent difference</th>
+                    </tr>
+                </thead>
                 <tbody>
-                {this.renderItems()}
+                    <CoinListItem coin={this.props.coin}/>
                 </tbody>
             </table>
         );
