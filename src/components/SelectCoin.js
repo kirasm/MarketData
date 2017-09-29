@@ -50,7 +50,7 @@ import React from 'react';
     validateInput(coin) {
         if (!coin) {
             return 'Please enter a task.';
-        } else if (_.find(this.props.coinArray, coinFunc => coinFunc.coin === coin)) {
+        } else if (_.find(this.props.coinArray, coinFunc => coinFunc.coinName === coin)) {
             return 'Task already exists.';
         } else {
             return null;

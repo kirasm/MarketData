@@ -3,32 +3,31 @@ import SelectCoin from './SelectCoin';
 import CoinList from './CoinList';
 
 
-
 const coinArray = [{
-    coin: 'bitcoin'
-}, {
-    coin: 'ethereum'
+
 }];
+
+
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            coinArray
+            coinArray: coinArray,
+            coinName: ["bitcoin", "ethereum"]
         };
+
     }
 
-    renderList(){
-        const props = {coinArray: this.state.coinArray, removeCoin: this.removeCoin.bind(this)};
+    renderList() {
 
-        return coinArray.map((coin, index) => <CoinList key={index} {...coin} />);
+        return coinArray.map((coinArray, index) => <CoinList key={index} {...coinArray} />);
     }
 
     render() {
         return (
-
-        <div>
+            <div>
                 <h1>CRYPTOCOIN</h1>
                 <SelectCoin coins={this.state.coinArray} addCoin={this.addCoin.bind(this)}/>
                 {this.renderList()}
@@ -36,14 +35,99 @@ export default class App extends React.Component {
         );
     }
 
-    addCoin(coin) {
-        this.state.coinArray.push({coin});
-        this.setState({ coinArray: this.state.coinArray });
+    updateCoins = () => {
+
+        let coinName = this.state.coinName;
+        let coinValue = [];
+        let coinBoughtAt = [];
+        let coinDiff = [];
+        let coinPctDiff = [];
+
+        let coinArrayUpdated = [];
+        let j = 0;
+
+        this.getMarketDataJSON(coinName, (dataArray) => {
+
+            for (j = 0; j < dataArray.length; j++) {
+
+                coinValue[j] = dataArray[j][0].price_usd;
+                coinBoughtAt[j] = parseInt("3501.04");
+                coinDiff[j] = (coinValue[j] - coinBoughtAt[j]).toFixed(2);
+                coinPctDiff[j] = (coinDiff[j] / coinValue[j] * 100).toFixed(2);
+                let diff_modifier, procent_diff_modifier = "";
+//
+                if (coinDiff > 0) {
+                    diff_modifier = " + $";
+                } else {
+                    diff_modifier = " - $";
+                }
+//
+                if (coinPctDiff > 0) {
+                    procent_diff_modifier = " + / % ";
+                } else {
+                    procent_diff_modifier = " - / % ";
+                }
+
+                coinArrayUpdated.push({
+                    coinName: coinName[j],
+                    coinValue: coinValue[j],
+                    coinBoughtAt: coinBoughtAt[j],
+                    coinDiff: coinDiff[j],
+                    coinPctDiff: coinPctDiff[j]
+                });
+
+            }
+
+            for (let i = 0; i < coinArrayUpdated.length; i++) {
+                this.state.coinArray[i] = coinArrayUpdated[i];
+            }
+
+            this.setState({
+
+                coinArray: this.state.coinArray
+
+            });
+
+        });
+
+    };
+
+    componentDidMount = () => {
+
+        console.log(this.state.coinName);
+
+        this.updateCoins();
+
+        this.apiCall = setInterval(() => {
+
+            this.updateCoins();
+
+        }, 3000);
+    };
+
+    componentWillUnmount() {
+        clearInterval(this.apiCall);
     }
 
-    removeCoin(taskToDelete) {
-        this.state.coinArray.remove(this.state.coinArray, coin => todo.task === taskToDelete);
-        this.setState({ coin: this.state.coinArray});
+    addCoin(coin) {
+
+       this.state.coinName.push(coin);
+       this.setState({coinName: this.state.coinName});
+    }
+
+    getMarketDataJSON(id, callback) {
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/api',
+            data: {currencyID: id},
+            success: function (result) {
+
+                callback(result);
+
+            }
+        });
     }
 }
 

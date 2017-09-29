@@ -17,6 +17,26 @@
 .App-intro {
   font-size: large;
 }
+.row {
+  background-color: #3b3e40;
+  height: 80px;
+  padding-right: 5vw;
+  text-align: center;
+  font-family: Calibri;
+  width: 100%;
+}
+
+.tHeader {
+  padding-left: 3vw;
+  color: white;
+  font-size: 2vw;
+}
+
+.tData {
+  padding-left: 20vw;
+  color: lightblue;
+  font-size: 2vw;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
