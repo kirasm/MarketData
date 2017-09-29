@@ -2,12 +2,7 @@ import React, {Component} from 'react';
 import SelectCoin from './SelectCoin';
 import CoinList from './CoinList';
 
-
-const coinArray = [{
-
-}];
-
-
+const coinArray = [{}];
 
 export default class App extends React.Component {
     constructor(props) {
@@ -54,18 +49,18 @@ export default class App extends React.Component {
                 coinBoughtAt[j] = parseInt("3501.04");
                 coinDiff[j] = (coinValue[j] - coinBoughtAt[j]).toFixed(2);
                 coinPctDiff[j] = (coinDiff[j] / coinValue[j] * 100).toFixed(2);
-                let diff_modifier, procent_diff_modifier = "";
+                let diffModifier, pctDiffModifier = "";
 //
                 if (coinDiff > 0) {
-                    diff_modifier = " + $";
+                    diffModifier = " + $";
                 } else {
-                    diff_modifier = " - $";
+                    diffModifier = " - $";
                 }
 //
                 if (coinPctDiff > 0) {
-                    procent_diff_modifier = " + / % ";
+                    pctDiffModifier = " + / % ";
                 } else {
-                    procent_diff_modifier = " - / % ";
+                    pctDiffModifier = " - / % ";
                 }
 
                 coinArrayUpdated.push({
@@ -94,8 +89,6 @@ export default class App extends React.Component {
 
     componentDidMount = () => {
 
-        console.log(this.state.coinName);
-
         this.updateCoins();
 
         this.apiCall = setInterval(() => {
@@ -111,8 +104,8 @@ export default class App extends React.Component {
 
     addCoin(coin) {
 
-       this.state.coinName.push(coin);
-       this.setState({coinName: this.state.coinName});
+        this.state.coinName.push(coin);
+        this.setState({coinName: this.state.coinName});
     }
 
     getMarketDataJSON(id, callback) {
@@ -123,9 +116,7 @@ export default class App extends React.Component {
             url: '/api',
             data: {currencyID: id},
             success: function (result) {
-
                 callback(result);
-
             }
         });
     }

@@ -32,7 +32,7 @@ import React from 'react';
 
     handleCreate(event) {
         event.preventDefault();
-
+adsd
         const coinInput = this.refs.coinInput;
         const coinName = coinInput.value;
         const validateInput = this.validateInput(coinName);
