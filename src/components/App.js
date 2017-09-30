@@ -10,7 +10,7 @@ export default class App extends React.Component {
 
         this.state = {
             coinArray: coinArray,
-            coinName: ["bitcoin", "ethereum"]
+            coinName: [ "bitcoin", "ethereum", "litecoin" ]
         };
 
     }
@@ -24,7 +24,8 @@ export default class App extends React.Component {
         return (
             <div>
                 <h1>CRYPTOCOIN</h1>
-                <SelectCoin coins={this.state.coinArray} addCoin={this.addCoin.bind(this)}/>
+                <h2>{this.state.error}</h2>
+                <SelectCoin coinArray={this.state.coinArray} coinName={this.state.coinName} addCoin={this.addCoin.bind(this)}/>
                 {this.renderList()}
             </div>
         );
@@ -41,9 +42,12 @@ export default class App extends React.Component {
         let coinArrayUpdated = [];
         let j = 0;
 
+
         this.getMarketDataJSON(coinName, (dataArray) => {
 
             for (j = 0; j < dataArray.length; j++) {
+
+                console.log(dataArray);
 
                 coinValue[j] = dataArray[j][0].price_usd;
                 coinBoughtAt[j] = parseInt("3501.04");

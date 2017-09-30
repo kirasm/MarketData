@@ -7,7 +7,7 @@ var $ = require('jquery');
 router.get('/', function (req, res) {
 
     var request = req.param('currencyID');
-
+    var tries = [request.length];
 
     getJSONArray(function (responseArray) {
         console.log("Sent!")
@@ -20,6 +20,7 @@ router.get('/', function (req, res) {
 
         let responseArray = [];
 
+
         for (let i = 0; i < request.length + 1; i++) {
 
             (function (index) {
@@ -27,41 +28,57 @@ router.get('/', function (req, res) {
                 // Calls the API for each request in the array
                 getData(request[index], function (response) {
 
-                    try {
+                    if (typeof response == "undefined" && tries[index] < 5) {
+                        index--;
+                        tries[index]++;
+                    } else {
 
-                        // Push response in returned array if id exists in requested array
-                        if (request.includes(response[0].id)) {
+                        try {
 
-                            console.log("Pushed");
-                            responseArray.push(response);
+                            // Push response in returned array if id exists in requested array
+                            if (request.includes(response[0].id)) {
+
+                                console.log("Pushed");
+                                responseArray.push(response);
+                            }
+
+                            // Returns response if response array is same size as requested array.
+                            if (responseArray.length == request.length) {
+
+                                // Orders returned array, by index of requested array.
+                                // REMEMBER! We are working asyncronously, so we have no way of knowing which getData response we get first!
+                                var orderedArray = []
+                                responseArray.forEach(function (item) {
+
+                                    orderedArray[request.indexOf(item[0].id)] = item;
+
+                                });
+
+                                console.log(tries);
+
+                                for(let i = 0; i < tries.length; i++){
+                                    if(tries[i] == 5){
+                                        orderedArray.push(request[i]);
+                                    }
+                                }
+
+
+                                callback(orderedArray);
+
+                            } else {
+
+                                index--;
+
+                            }
+
+
+                        } catch (err) {
                         }
-
-                        // Returns response if response array is same size as requested array.
-                        if (responseArray.length == request.length) {
-
-                            // Orders returned array, by index of requested array.
-                            // REMEMBER! We are working asyncronously, so we have no way of knowing which getData response we get first!
-                            var orderedArray = []
-                            responseArray.forEach(function (item) {
-
-                                orderedArray[request.indexOf(item[0].id)] = item;
-
-                            });
-
-                            callback(orderedArray);
-
-                        } else {
-
-                            index--;
-
-                        }
-
-
-                    } catch (err) {
                     }
 
 
                 });
+
 
             })(i);
         }

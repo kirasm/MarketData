@@ -9,6 +9,7 @@ import React from 'react';
         this.state = {
             error: null
         };
+        this.validateInput = this.validateInput.bind(this)
     }
 
     renderError() {
@@ -30,27 +31,32 @@ import React from 'react';
         );
     }
 
-    handleCreate(event) {
+    handleCreate = (event) => {
         event.preventDefault();
-adsd
         const coinInput = this.refs.coinInput;
         const coinName = coinInput.value;
         const validateInput = this.validateInput(coinName);
 
         if (validateInput) {
+
             this.setState({ error: validateInput });
             return;
+
+        } else {
+
+            this.setState({ error: null });
+            this.props.addCoin(coinName);
         }
 
-        this.setState({ error: null });
-        this.props.addCoin(coinName);
         this.refs.coinInput.value = '';
-    }
 
-    validateInput(coin) {
-        if (!coin) {
+
+    };
+
+    validateInput = (coinName) =>{
+        if (!coinName) {
             return 'Please enter a task.';
-        } else if (_.find(this.props.coinArray, coinFunc => coinFunc.coinName === coin)) {
+        } else if (this.props.coinName.includes(coinName)) {
             return 'Task already exists.';
         } else {
             return null;
