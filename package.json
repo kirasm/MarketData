@@ -12,10 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.5.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "get-json": "^1.0.0",
+    "jquery": "^3.2.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "styled-components": "^2.2.0"
