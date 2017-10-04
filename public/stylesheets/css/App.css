@@ -20,22 +20,22 @@
 .row {
   background-color: #3b3e40;
   height: 80px;
-  padding-right: 5vw;
+  padding-right: 2vw;
   text-align: center;
   font-family: Calibri;
   width: 100%;
 }
 
 .tHeader {
-  padding-left: 3vw;
+  padding-left: 2vw;
   color: white;
   font-size: 2vw;
 }
 
 .tData {
-  padding-left: 20vw;
+  padding-left: 15vw;
   color: lightblue;
-  font-size: 2vw;
+  font-size: 1.5vw;
 }
 
 @keyframes App-logo-spin {

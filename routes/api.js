@@ -6,31 +6,52 @@ var $ = require('jquery');
 
 router.get('/', function (req, res) {
 
-    var request = req.param('currencyID');
+    var request = req.param('query');
+    var args = req.param('arguments');
     var tries = [request.length];
 
-    getJSONArray(function (responseArray) {
-        console.log("Sent!")
 
-        res.json(responseArray);
+    if (request.includes("select")) {
 
-    });
+        getJSONArrayAll(args, function (responseArray) {
+            console.log("Sent!")
 
-    function getJSONArray(callback) {
+            res.json(responseArray);
+
+        });
+
+    } else {
+
+        getJSONArrayFromQuery(function (responseArray) {
+            console.log("Sent!")
+
+            res.json(responseArray);
+
+        });
+
+    }
+
+    function getJSONArrayAll(args, callback) {
+        getDataAll(args, function (response) {
+            callback(response);
+        });
+    }
+
+    function getJSONArrayFromQuery(callback) {
 
         let responseArray = [];
-
 
         for (let i = 0; i < request.length + 1; i++) {
 
             (function (index) {
 
                 // Calls the API for each request in the array
-                getData(request[index], function (response) {
+                getDataFromQuery(request[index], args, function (response) {
 
                     if (typeof response == "undefined" && tries[index] < 5) {
                         index--;
                         tries[index]++;
+
                     } else {
 
                         try {
@@ -46,7 +67,7 @@ router.get('/', function (req, res) {
                             if (responseArray.length == request.length) {
 
                                 // Orders returned array, by index of requested array.
-                                // REMEMBER! We are working asyncronously, so we have no way of knowing which getData response we get first!
+                                // REMEMBER! We are working asyncronously, so we have no way of knowing which getDataFromQuery response we get first!
                                 var orderedArray = []
                                 responseArray.forEach(function (item) {
 
@@ -54,12 +75,13 @@ router.get('/', function (req, res) {
 
                                 });
 
-                                console.log(tries);
 
-                                for(let i = 0; i < tries.length; i++){
-                                    if(tries[i] == 5){
+
+                                for (let i = 0; i < tries.length; i++) {
+                                    if (tries[i] == 5) {
                                         orderedArray.push(request[i]);
                                     }
+                                    console.log("what");
                                 }
 
 
@@ -70,29 +92,37 @@ router.get('/', function (req, res) {
                                 index--;
 
                             }
-
-
                         } catch (err) {
                         }
                     }
-
-
                 });
-
-
             })(i);
         }
 
     }
 
-    function getData(request, callback) {
+
+    function getDataFromQuery(request, arg, callback) {
 
         getJSON("https://api.coinmarketcap.com/v1/ticker/" + request + "/", function (error, response) {
 
             callback(response);
 
         });
+    }
 
+    function getDataAll(arg, callback) {
+
+        if (typeof args == "undefined") {
+            getJSON("https://api.coinmarketcap.com/v1/ticker/", function (error, response) {
+                callback(response);
+            });
+        } else {
+
+            getJSON("https://api.coinmarketcap.com/v1/ticker/?limit=" + arg, function (error, response) {
+                callback(response);
+            });
+        }
     }
 
 });

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SelectCoin from './SelectCoin';
 import CoinList from './CoinList';
+import ListCoins from './ListCoins';
 
 const coinArray = [{}];
 
@@ -26,10 +27,17 @@ export default class App extends React.Component {
                 <h1>CRYPTOCOIN</h1>
                 <h2>{this.state.error}</h2>
                 <SelectCoin coinArray={this.state.coinArray} coinName={this.state.coinName} addCoin={this.addCoin.bind(this)}/>
+                <ListCoins getAllCoins={this.getAllCoins.bind(this)}/>
                 {this.renderList()}
             </div>
         );
     }
+
+    getAllCoins = () => {
+
+        getMarketDataJSON("selectAll","", callback)
+
+    };
 
     updateCoins = () => {
 
@@ -43,24 +51,25 @@ export default class App extends React.Component {
         let j = 0;
 
 
-        this.getMarketDataJSON(coinName, (dataArray) => {
+        this.getMarketDataJSON(coinName,"", (dataArray) => {
+            console.log(dataArray);
+
 
             for (j = 0; j < dataArray.length; j++) {
 
-                console.log(dataArray);
 
                 coinValue[j] = dataArray[j][0].price_usd;
                 coinBoughtAt[j] = parseInt("3501.04");
                 coinDiff[j] = (coinValue[j] - coinBoughtAt[j]).toFixed(2);
                 coinPctDiff[j] = (coinDiff[j] / coinValue[j] * 100).toFixed(2);
                 let diffModifier, pctDiffModifier = "";
-//
+
                 if (coinDiff > 0) {
                     diffModifier = " + $";
                 } else {
                     diffModifier = " - $";
                 }
-//
+
                 if (coinPctDiff > 0) {
                     pctDiffModifier = " + / % ";
                 } else {
@@ -112,13 +121,13 @@ export default class App extends React.Component {
         this.setState({coinName: this.state.coinName});
     }
 
-    getMarketDataJSON(id, callback) {
+    getMarketDataJSON(queryStatement, args, callback) {
 
         $.ajax({
             type: 'GET',
             dataType: 'json',
             url: '/api',
-            data: {currencyID: id},
+            data: {query: queryStatement, arguments: args},
             success: function (result) {
                 callback(result);
             }

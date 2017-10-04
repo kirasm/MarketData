@@ -1,7 +1,7 @@
 import React from 'react';
 
 
- class SelectCoin extends React.Component {
+class SelectCoin extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,9 +13,11 @@ import React from 'react';
     }
 
     renderError() {
-        if (!this.state.error) { return null; }
+        if (!this.state.error) {
+            return null;
+        }
 
-        return <div style={{ color: 'red' }}>{this.state.error}</div>;
+        return <div style={{color: 'red'}}>{this.state.error}</div>;
     }
 
 
@@ -24,7 +26,7 @@ import React from 'react';
         return (
 
             <form onSubmit={this.handleCreate.bind(this)}>
-                <input type="text" placeholder="Request a coin!" ref="coinInput" />
+                <input type="text" placeholder="Request a coin!" ref="coinInput"/>
                 <button>Select</button>
                 {this.renderError()}
             </form>
@@ -39,12 +41,12 @@ import React from 'react';
 
         if (validateInput) {
 
-            this.setState({ error: validateInput });
+            this.setState({error: validateInput});
             return;
 
         } else {
 
-            this.setState({ error: null });
+            this.setState({error: null});
             this.props.addCoin(coinName);
         }
 
@@ -53,7 +55,7 @@ import React from 'react';
 
     };
 
-    validateInput = (coinName) =>{
+    validateInput = (coinName) => {
         if (!coinName) {
             return 'Please enter a task.';
         } else if (this.props.coinName.includes(coinName)) {
@@ -62,11 +64,6 @@ import React from 'react';
             return null;
         }
     }
-
-
-
-
-
 
 
 }
