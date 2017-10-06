@@ -12,6 +12,8 @@ if(process.env.NODE_ENV !== 'production') {
   var webpack = require('webpack');
   var config = require('./webpack.config');
   var compiler = webpack(config);
+
+
   var index = require('./routes/indexPage');
   var APIData = require('./routes/api');
 

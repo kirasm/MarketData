@@ -6,116 +6,65 @@ var $ = require('jquery');
 
 router.get('/', function (req, res) {
 
-    var request = req.param('query');
+    var request = req.param('request');
     var args = req.param('arguments');
-    var tries = [request.length];
+    // var tries = [request.length];
 
 
-    getJSONArrayAll(request, args, function (responseArray) {
-        console.log("Sent!")
-        res.json(responseArray);
+    if (request.includes("select")) {
 
-    });
+        getJSONArrayAll(request, args, function (responseArray) {
+            console.log("Sent!");
+            res.json(responseArray);
+        });
+
+    } else {
+
+        getDataFromQuery(request, function (responseArray) {
+            console.log(responseArray["DISPLAY"]["BTC"]);
+            console.log("Sent!");
+            res.json(responseArray);
+        });
+
+    }
 
 
     function getJSONArrayAll(request, args, callback) {
 
         getDataAll(args, function (response) {
 
-            if (request.includes("select")) {
+            let responseArray = [];
 
-                callback(response)
+            for (let i = 0; i < response.length; i++) {
 
-            } else {
+                if (request.includes(response[i].id)) {
 
-                let responseArray = [];
-
-                for (let i = 0; i < response.length; i++) {
-
-                    if (request.includes(response[i].id)) {
-
-                        responseArray.push(response[i]);
-                    }
+                    responseArray.push(response[i]);
                 }
-                callback(responseArray);
-
             }
+            callback(responseArray);
 
         });
 
-
     }
 
-    function getJSONArrayFromQuery(callback) {
+    function getDataFromQuery(request, callback) {
 
-        let responseArray = [];
-
-        for (let i = 0; i < request.length + 1; i++) {
-
-            (function (index) {
-
-                // Calls the API for each request in the array
-                getDataFromQuery(request[index], args, function (response) {
-
-                    // if (typeof response == "undefined" && tries[index] < 5) {
-                    //     index--;
-                    //     tries[index]++;
-//
-                    // } else {
-
-                    try {
-
-                        // Push response in returned array if id exists in requested array
-                        if (request.includes(response[0].id)) {
-
-                            console.log("Pushed");
-                            responseArray.push(response);
-                        }
-
-                        // Returns response if response array is same size as requested array.
-                        if (responseArray.length == request.length) {
-
-                            // Orders returned array, by index of requested array.
-                            // REMEMBER! We are working asyncronously, so we have no way of knowing which getDataFromQuery response we get first!
-                            var orderedArray = []
-                            responseArray.forEach(function (item) {
-
-                                orderedArray[request.indexOf(item[0].id)] = item;
-
-                            });
-
-
-                            // for (let i = 0; i < tries.length; i++) {
-                            //     if (tries[i] == 5) {
-                            //         orderedArray.push(request[i]);
-                            //     }
-                            //     console.log("what");
-                            // }
-
-
-                            callback(orderedArray);
-
-                        } else {
-
-                            index--;
-
-                        }
-                    } catch (err) {
-                    }
-                    //   }
-                });
-            })(i);
+        console.log("requestArray")
+        console.log(request)
+        let coinString = "";
+        for (let i = 0; i < request.length; i++) {
+            coinString = coinString + request[i]
+            if (i != request.length - 1) {
+                coinString = coinString + ","
+            }
         }
 
-    }
+        console.log("request")
+        console.log(coinString)
 
-
-    function getDataFromQuery(request, arg, callback) {
-
-        getJSON("https://api.coinmarketcap.com/v1/ticker/" + request + "/", function (error, response) {
-
+        getJSON("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + coinString + "&tsyms=USD", function (error, response) {
             callback(response);
-
         });
     }
 
@@ -136,10 +85,19 @@ router.get('/', function (req, res) {
     }
 
 
-    function callAPI(arg, callback) {
+    function callAPI(request, callback) {
 
-        if (typeof arg == "undefined") {
-            getJSON("https://api.coinmarketcap.com/v1/ticker", function (error, response) {
+        let coinString = "";
+        for (coinName in request) {
+            coinString = coinString + coinName + ","
+        }
+
+        let requestString = coinString.split(coinString.length - 1)[0];
+
+        console.log(requestString);
+
+        if (typeof request == "undefined") {
+            getJSON("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + requestString + "&tsyms=USD", function (error, response) {
                 callback(response);
             });
         } else {
