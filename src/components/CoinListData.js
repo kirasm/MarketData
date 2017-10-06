@@ -8,6 +8,7 @@ export default class CoinListData extends React.Component {
     }
 
     render() {
+
         return (
             <tr>
                 <td className={style.tData}> {this.props.coinValue} </td>

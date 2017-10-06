@@ -17,25 +17,26 @@
 .App-intro {
   font-size: large;
 }
+
 .row {
   background-color: #3b3e40;
-  height: 80px;
-  padding-right: 2vw;
+  height: 60px;
   text-align: center;
   font-family: Calibri;
-  width: 100%;
+  float: left;
+  width: 5vw;
+  margin-bottom: 1vw;
 }
 
 .tHeader {
-  padding-left: 2vw;
   color: white;
-  font-size: 2vw;
+  font-size: 1vw;
 }
 
 .tData {
-  padding-left: 15vw;
+  padding-left: 1vw;
   color: lightblue;
-  font-size: 1.5vw;
+  font-size: 0.5vw;
 }
 
 @keyframes App-logo-spin {

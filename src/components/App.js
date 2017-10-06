@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SelectCoin from './SelectCoin';
 import CoinList from './CoinList';
 import ListCoins from './ListCoins';
+import CardList from './CardList';
 
 const coinArray = [{}];
 
@@ -11,13 +12,9 @@ export default class App extends React.Component {
 
         this.state = {
             coinArray: coinArray,
-            coinName: [ ]
+            coinName: ["bitcoin","litecoin","ethereum"]
 
         };
-    }
-
-    renderList() {
-        return coinArray.map((coinArray, index) => <CoinList key={index} {...coinArray} />);
     }
 
     render() {
@@ -27,7 +24,7 @@ export default class App extends React.Component {
                 <h2>{this.state.error}</h2>
                 <SelectCoin coinArray={this.state.coinArray} coinName={this.state.coinName} addCoin={this.addCoin.bind(this)}/>
                 <ListCoins getAllCoins={this.getAllCoins.bind(this)}/>
-                {this.renderList()}
+                <CardList coinArray={this.state.coinArray} />
             </div>
         );
     }
@@ -43,27 +40,24 @@ export default class App extends React.Component {
 
     updateCoins = () => {
 
-        let coinName = [];
+        let coinName = this.state.coinName;
         let coinValue = [];
         let coinBoughtAt = [];
         let coinDiff = [];
         let coinPctDiff = [];
 
         let coinArrayUpdated = [];
-        let j = 0;
+        let i = 0;
 
+        this.getMarketDataJSON(coinName,"", (dataArray) => {
 
-        this.getMarketDataJSON("selectAll","10", (dataArray) => {
-            console.log(dataArray);
+            for (i = 0; i < dataArray.length; i++) {
 
-
-            for (j = 0; j < dataArray.length; j++) {
-
-                coinName[j] = dataArray[j].id;
-                coinValue[j] = dataArray[j].price_usd;
-                coinBoughtAt[j] = "0"
-                coinDiff[j] = (coinValue[j] - coinBoughtAt[j]).toFixed(2);
-                coinPctDiff[j] = (coinDiff[j] / coinValue[j] * 100).toFixed(2);
+                coinName[i] = dataArray[i].id;
+                coinValue[i] = dataArray[i].price_usd;
+                coinBoughtAt[i] = "0"
+                coinDiff[i] = (coinValue[i] - coinBoughtAt[i]).toFixed(2);
+                coinPctDiff[i] = (coinDiff[i] / coinValue[i] * 100).toFixed(2);
                 let diffModifier, pctDiffModifier = "";
 
                 if (coinDiff > 0) {
@@ -79,11 +73,11 @@ export default class App extends React.Component {
                 }
 
                 coinArrayUpdated.push({
-                    coinName: coinName[j],
-                    coinValue: coinValue[j],
-                    coinBoughtAt: coinBoughtAt[j],
-                    coinDiff: coinDiff[j],
-                    coinPctDiff: coinPctDiff[j]
+                    coinName: coinName[i],
+                    coinValue: coinValue[i],
+                    coinBoughtAt: coinBoughtAt[i],
+                    coinDiff: coinDiff[i],
+                    coinPctDiff: coinPctDiff[i]
                 });
 
             }
